@@ -40,4 +40,15 @@ class Locator
 
         return $this->proxies[$moduleName];
     }
+
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @return LocatorProxyInterface
+     * @throws Proxy\NotFoundException
+     */
+    public function __call(string $name, array $arguments)
+    {
+        return $this->locate(ucfirst($name));
+    }
 }
