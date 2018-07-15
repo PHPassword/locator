@@ -3,7 +3,9 @@
 namespace PHPassword\Locator\Facade;
 
 
-interface FacadeInterface
+use PHPassword\Locator\LocatorAwareInterface;
+
+interface FacadeInterface extends LocatorAwareInterface
 {
 
 }

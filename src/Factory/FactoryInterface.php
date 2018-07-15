@@ -3,7 +3,9 @@
 namespace PHPassword\Locator\Factory;
 
 
-interface FactoryInterface
+use PHPassword\Locator\LocatorAwareInterface;
+
+interface FactoryInterface extends LocatorAwareInterface
 {
 
 }
