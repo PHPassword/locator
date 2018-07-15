@@ -1,5 +1,6 @@
 <?php
 
+use PHPassword\Locator\Locator;
 use PHPassword\Locator\Proxy\LocatorProxyFactory;
 use PHPassword\Locator\Proxy\LocatorProxyInterface;
 use PHPassword\Locator\Proxy\NotFoundException;
@@ -13,7 +14,7 @@ class LocatorProxyFactoryTest extends TestCase
     public function testCreate()
     {
         $factory = new LocatorProxyFactory(new ArrayObject(['PHPassword\\UnitTest\\']));
-        $this->assertInstanceOf(LocatorProxyInterface::class, $factory->create('LocatorProxyTest'));
+        $this->assertInstanceOf(LocatorProxyInterface::class, $factory->create('LocatorProxyTest', new Locator($factory)));
     }
 
     /**
@@ -23,6 +24,6 @@ class LocatorProxyFactoryTest extends TestCase
     {
         $factory = new LocatorProxyFactory(new ArrayObject(['PHPassword\\UnitTest\\']));
         $this->expectException(NotFoundException::class);
-        $this->assertInstanceOf(LocatorProxyInterface::class, $factory->create('NonExistent'));
+        $this->assertInstanceOf(LocatorProxyInterface::class, $factory->create('NonExistent', new Locator($factory)));
     }
 }
