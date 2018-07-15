@@ -91,7 +91,7 @@ class LocatorProxy implements LocatorProxyInterface
     private function searchInNamespaces(string $expectedClassBaseName, string $expectedInterface)
     {
         foreach($this->searchableNamespaces as $namespace){
-            $expectedClassName = $namespace . sprintf(static::$classNameSchema, $this->locateName, $expectedClassBaseName);
+            $expectedClassName = $namespace . sprintf(self::$classNameSchema, $this->locateName, $expectedClassBaseName);
             if(class_exists($expectedClassName) === true
                 && in_array($expectedInterface, class_implements($expectedClassName))){
                 return $expectedClassName;
