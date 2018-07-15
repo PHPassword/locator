@@ -63,4 +63,13 @@ class LocatorProxyTest extends TestCase
         $proxy = new LocatorProxy(new ArrayObject(['PHPassword\\UnitTest\\']), 'LocatorProxyFalseTest');
         $this->assertInstanceOf(EmptyFacade::class, $proxy->facade());
     }
+
+    /**
+     * @throws Exception
+     */
+    public function testInitialize()
+    {
+        $proxy = new LocatorProxy(new ArrayObject(['PHPassword\\UnitTest\\']), 'LocatorProxyTest');
+        $this->assertNull($proxy->initialize());
+    }
 }

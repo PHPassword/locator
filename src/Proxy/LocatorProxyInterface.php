@@ -9,6 +9,11 @@ use PHPassword\Locator\Factory\FactoryInterface;
 interface LocatorProxyInterface
 {
     /**
+     * @return void
+     */
+    public function initialize();
+
+    /**
      * @return FactoryInterface
      */
     public function factory() : FactoryInterface;

@@ -47,6 +47,14 @@ class LocatorProxy implements LocatorProxyInterface
     }
 
     /**
+     * @return void
+     */
+    public function initialize()
+    {
+
+    }
+
+    /**
      * @return FactoryInterface
      */
     public function factory(): FactoryInterface
