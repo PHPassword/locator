@@ -10,14 +10,22 @@ use PHPUnit\Framework\TestCase;
 class LocatorTest extends TestCase
 {
     /**
+     * @var Locator
+     */
+    private static $locator;
+
+    public static function setUpBeforeClass()
+    {
+        $factory = new LocatorProxyFactory(new ArrayObject(['PHPassword\\UnitTest\\']));
+        static::$locator = new Locator($factory);
+    }
+
+    /**
      * @throws Exception
      */
     public function testLocate()
     {
-        $factory = new LocatorProxyFactory(new ArrayObject(['PHPassword\\UnitTest\\']));
-        $locator = new Locator($factory);
-
-        $this->assertInstanceOf(LocatorProxyInterface::class, $locator->locate('LocatorProxyTest'));
+        $this->assertInstanceOf(LocatorProxyInterface::class, static::$locator->locate('LocatorProxyTest'));
     }
 
     /**
@@ -25,10 +33,24 @@ class LocatorTest extends TestCase
      */
     public function testLocateFail()
     {
-        $factory = new LocatorProxyFactory(new ArrayObject(['PHPassword\\UnitTest\\']));
-        $locator = new Locator($factory);
-
         $this->expectException(NotFoundException::class);
-        $locator->locate('NonExistent');
+        static::$locator->locate('NonExistent');
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testCall()
+    {
+        $this->assertInstanceOf(LocatorProxyInterface::class, static::$locator->locatorProxyTest());
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testCallFail()
+    {
+        $this->expectException(NotFoundException::class);
+        static::$locator->nonExistent();
     }
 }
