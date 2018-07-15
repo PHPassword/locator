@@ -35,7 +35,7 @@ class Locator
     public function locate(string $moduleName) : LocatorProxyInterface
     {
         if(!isset($this->proxies[$moduleName])){
-            $this->proxies[$moduleName] = $this->factory->create($moduleName);
+            $this->proxies[$moduleName] = $this->factory->create($moduleName, $this);
         }
 
         return $this->proxies[$moduleName];
