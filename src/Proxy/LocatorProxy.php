@@ -7,6 +7,7 @@ use PHPassword\Locator\Facade\EmptyFacade;
 use PHPassword\Locator\Facade\FacadeInterface;
 use PHPassword\Locator\Factory\EmptyFactory;
 use PHPassword\Locator\Factory\FactoryInterface;
+use PHPassword\Locator\Locator;
 
 class LocatorProxy implements LocatorProxyInterface
 {
@@ -26,6 +27,11 @@ class LocatorProxy implements LocatorProxyInterface
     private $locateName;
 
     /**
+     * @var Locator
+     */
+    private $locator;
+
+    /**
      * @var FactoryInterface
      */
     private $factory;
@@ -39,11 +45,13 @@ class LocatorProxy implements LocatorProxyInterface
      * LocatorProxy constructor.
      * @param \ArrayObject $searchableNamespaces
      * @param string $locateName
+     * @param Locator $locator
      */
-    public function __construct(\ArrayObject $searchableNamespaces, string $locateName)
+    public function __construct(\ArrayObject $searchableNamespaces, string $locateName, Locator $locator)
     {
         $this->searchableNamespaces = $searchableNamespaces;
         $this->locateName = $locateName;
+        $this->locator = $locator;
     }
 
     /**
@@ -59,6 +67,7 @@ class LocatorProxy implements LocatorProxyInterface
             }
 
             $this->factory = new $className;
+            $this->factory->setLocator($this->locator);
         }
 
         return $this->factory;
@@ -77,6 +86,7 @@ class LocatorProxy implements LocatorProxyInterface
             }
 
             $this->facade = new $className;
+            $this->facade->setLocator($this->locator);
         }
 
         return $this->facade;
