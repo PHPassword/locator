@@ -2,6 +2,8 @@
 
 
 use PHPassword\Locator\Locator;
+use PHPassword\Locator\LocatorParameter;
+use PHPassword\Locator\LocatorParameterInterface;
 use PHPassword\Locator\Proxy\LocatorProxyFactory;
 use PHPassword\Locator\Proxy\LocatorProxyInterface;
 use PHPassword\Locator\Proxy\NotFoundException;
@@ -52,5 +54,18 @@ class LocatorTest extends TestCase
     {
         $this->expectException(NotFoundException::class);
         static::$locator->nonExistent();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testParameter()
+    {
+        $this->assertInstanceOf(LocatorParameterInterface::class, static::$locator->parameter());
+
+        $parameter = new LocatorParameter();
+        $locator = new Locator(new LocatorProxyFactory(new ArrayObject(['PHPassword\\UnitTest\\'])), $parameter);
+
+        $this->assertSame($parameter, $locator->parameter());
     }
 }
