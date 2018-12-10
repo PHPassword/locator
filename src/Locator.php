@@ -13,6 +13,11 @@ class Locator
     private $factory;
 
     /**
+     * @var LocatorParameterInterface
+     */
+    private $parameter;
+
+    /**
      * @var LocatorProxyInterface[]
      */
     private $proxies;
@@ -21,9 +26,10 @@ class Locator
      * Locator constructor.
      * @param LocatorProxyFactory $factory
      */
-    public function __construct(LocatorProxyFactory $factory)
+    public function __construct(LocatorProxyFactory $factory, LocatorParameterInterface $parameter = null)
     {
         $this->factory = $factory;
+        $this->parameter = $parameter ?? new LocatorParameter();
         $this->proxies = [];
     }
 
@@ -50,5 +56,13 @@ class Locator
     public function __call(string $name, array $arguments)
     {
         return $this->locate(ucfirst($name));
+    }
+
+    /**
+     * @return LocatorParameterInterface
+     */
+    public function parameter(): LocatorParameterInterface
+    {
+        return $this->parameter;
     }
 }
