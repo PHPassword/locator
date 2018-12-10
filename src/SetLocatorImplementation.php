@@ -17,4 +17,12 @@ trait SetLocatorImplementation
     {
         $this->locator = $locator;
     }
+
+    /**
+     * @return Locator
+     */
+    protected function locator(): Locator
+    {
+        return $this->locator;
+    }
 }
